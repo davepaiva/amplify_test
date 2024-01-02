@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "AmplifyPushNotification.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -58,6 +59,14 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+  - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [AmplifyPushNotification didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+  [AmplifyPushNotification didReceiveRemoteNotification:userInfo withCompletionHandler:completionHandler];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.
